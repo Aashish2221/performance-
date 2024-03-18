@@ -74,7 +74,7 @@ console.log(products)
   };
   return (
     <>
-      {/* ******************** SEO CONTENT ******************** */}
+      {/ ******************* SEO CONTENT ******************* /}
       <Head>
         <title>{title}</title>
         <meta property='og:type' content={data.OGTags.home.type} />
@@ -112,14 +112,14 @@ console.log(products)
           key='product-jsonld'
         ></script>
       </Head>
-      {/* ******************** GRADIENT ******************** */}
+      {/ ******************* GRADIENT ******************* /}
       <div className='bg-gradient-to-b from-secondary via-white to-white text-dark-black'>
         <div className='container mx-auto py-8 md:mt-2  lg:mt-1'>
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             Explore the best prices of bullion with Bullion Mentor
           </h1>
           <p
-            className='text-xs text-slate-600 md:text-base'
+            className='hidden sm:block text-xs text-slate-600 md:text-base'
             dangerouslySetInnerHTML={{
               __html: topProducts.homepagecontent?.seoContent
             }}
@@ -127,9 +127,9 @@ console.log(products)
         </div>
       </div>
       {hydrated === true ? (
-        <div className='container mx-auto text-dark-black'>
+        <div className='container mx-2 text-dark-black'>
           <div className='flex flex-col gap-2 md:grid md:grid-cols-5'>
-            {/* ******************** LEFT ADVERTISEMENT ******************** */}
+            {/ ******************* LEFT ADVERTISEMENT ******************* /}
             <div className='hidden flex-col gap-4 sm:sticky sm:top-32 sm:h-fit sm:flex'>
               <div className='flex w-full items-center justify-center rounded-md '>
                 <Image
@@ -152,11 +152,11 @@ console.log(products)
                 />
               </div>
             </div>
-            {/* ******************** PAGE CONTENT ******************** */}
+            {/ ******************* PAGE CONTENT ******************* /}
             <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
-              {/* ******************** VIEW TOGGLE BUTTONS ******************** */}
+              {/ ******************* VIEW TOGGLE BUTTONS ******************* /}
               <div className='mb-4 hidden justify-end gap-6 md:flex'>
-                {/* ******************** DETAIL VIEW BUTTON ******************** */}
+                {/ ******************* DETAIL VIEW BUTTON ******************* /}
                 <button
                   onClick={() => setView('detailed')}
                   className={`flex items-center gap-2 px-4 py-2 ${
@@ -168,7 +168,7 @@ console.log(products)
                   <GiHamburgerMenu size={25} />
                   <span>Detailed View</span>
                 </button>
-                {/* ******************** GRID VIEW BUTTON ******************** */}
+                {/ ******************* GRID VIEW BUTTON ******************* /}
                 <button
                   onClick={() => setView('grid')}
                   className={`flex items-center gap-2 px-4 py-2 ${
@@ -181,7 +181,7 @@ console.log(products)
                   <span>Grid View</span>
                 </button>
               </div>
-              {/* ******************** PRODUCT LIST ******************** */}
+              {/ ******************* PRODUCT LIST ******************* /}
               <Suspense>
                 <InfiniteScroll
                   dataLength={products.length}
@@ -208,7 +208,13 @@ console.log(products)
                 </InfiniteScroll>
               </Suspense>
             </div>
-            {/* ******************** LEFT ADVERTISEMENT for mobile view ******************** */}
+            <p
+            className='sm:hidden text-xs text-slate-600 md:text-base'
+            dangerouslySetInnerHTML={{
+              __html: topProducts.homepagecontent?.seoContent
+            }}
+          ></p>
+            {/ ******************* LEFT ADVERTISEMENT for mobile view ******************* /}
             <div className='sm:hidden flex-col gap-4 sm:sticky sm:top-32  sm:h-fit'>
               <div className='flex w-full items-center justify-center rounded-md '>
                 <Image
@@ -231,7 +237,7 @@ console.log(products)
                 />
               </div>
             </div>
-            {/* ******************** RIGHT ADVERTISEMENT ******************** */}
+            {/ ******************* RIGHT ADVERTISEMENT ******************* /}
             <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32  sm:flex sm:h-fit lg:pt-0'>
               <div className='flex  w-full items-center justify-center rounded-md'>
                 <Image
