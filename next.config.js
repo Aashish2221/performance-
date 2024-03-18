@@ -310,7 +310,7 @@ const nextConfig = {
       'online.kitco.com',
       'lh3.googleusercontent.com'
     ],
-    unoptimized: true
+    unoptimized: false
   },
   env: {
     BASE_URL: 'https://bbdapi.bestbulliondeals.com',
