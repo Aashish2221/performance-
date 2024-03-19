@@ -1,33 +1,55 @@
-import { BiChevronDown } from "react-icons/bi";
-import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { AccordionProps } from "@/interfaces/propsinterfaces";
+import * as React from "react"
+import * as AccordionPrimitive from "@radix-ui/react-accordion"
+import { LuChevronDown } from "react-icons/lu";
+import { cn } from "@/lib/utils"
 
-export default function Accordion({ title, children }: AccordionProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <div>
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className='flex items-center w-full justify-between text-sm font-medium py-4'
-      >
-        <p className='text-white'>{title}</p>
-        <motion.span
-          animate={{
-            rotate: expanded ? "180deg" : "0",
-          }}
-        >
-          <BiChevronDown className='text-white w-5 h-5' />
-        </motion.span>
-      </button>
-      <motion.div
-        ref={ref}
-        initial={{ height: 0, overflow: "hidden" }}
-        animate={{ height: !expanded ? 0 : ref?.current?.scrollHeight , overflow: "scroll" }}
-      >
-        {children}
-      </motion.div>
-    </div>
-  );
-}
+const Accordion = AccordionPrimitive.Root
+
+const AccordionItem = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
+>(({ className, ...props }, ref) => (
+  <AccordionPrimitive.Item
+    ref={ref}
+    className={cn("border-b", className)}
+    {...props}
+  />
+))
+AccordionItem.displayName = "AccordionItem"
+
+const AccordionTrigger = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        "flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
+        className
+      )}
+      {...props}
+    >
+      {children}
+      <LuChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+    </AccordionPrimitive.Trigger>
+  </AccordionPrimitive.Header>
+))
+AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
+
+const AccordionContent = React.forwardRef<
+  React.ElementRef<typeof AccordionPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
+>(({ className, children, ...props }, ref) => (
+  <AccordionPrimitive.Content
+    ref={ref}
+    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+    {...props}
+  >
+    <div className={cn("pb-4 pt-0", className)}>{children}</div>
+  </AccordionPrimitive.Content>
+))
+
+AccordionContent.displayName = AccordionPrimitive.Content.displayName
+
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent }

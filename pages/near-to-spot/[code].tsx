@@ -22,7 +22,6 @@ export default function NearToSpot({
   const [hasMore, setHasMore] = useState(true);
   const [pageNumber, setPageNumber] = useState(2); 
   const [products, setProducts] = useState(topProducts.homePageProductDetails);
-console.log(products)
   useEffect(() => {
     setHydrated(true);
   }, [topProducts]);
@@ -174,7 +173,7 @@ console.log(products)
               {/* ******************** PRODUCT LIST ******************** */}
               <Suspense>
                 <InfiniteScroll
-                  dataLength={products.length}
+                  dataLength={products?.length}
                   next={handleLoadMore}
                   hasMore={hasMore}
                   loader={<SearchSpinner />}
@@ -187,7 +186,7 @@ console.log(products)
                         : 'grid-cols-2 xl:grid-cols-3'
                     }`}
                   >
-                    {products.map((product: any) => (
+                    {products?.map((product: any) => (
                       <TopProductItem
                         view={view}
                         key={product.productId}
@@ -213,7 +212,7 @@ console.log(products)
                   height={350}
                   width={550}
                   className='rounded-lg'
-                  loading='eager'
+                  loading='lazy'
                 />
               </div>
               <div className='flex w-full items-center justify-center rounded-md'>
@@ -223,7 +222,7 @@ console.log(products)
                   height={350}
                   width={550}
                   className='rounded-lg pt-4 lg:pt-0'
-                  loading='eager'
+                  loading='lazy'
                 />
               </div>
             </div>
@@ -263,7 +262,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query, res }) => 
     const title = response.data.homepagecontent.metaTitle;
     const description = response.data.homepagecontent.metaDesc;
     const topProducts = response.data;
-
     return {
       props: {
         title,

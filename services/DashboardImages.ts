@@ -5,23 +5,23 @@ const DashboardImages = () => {
       imageName: 'Banner1',
       imageForVenderId: 1,
       imagePath:
-        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/silver-round-sale.webp',
+        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/world-goldo-on-sale.webp',
       mobileImageurl:
-        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/silver-round-sale-mob.webp',
+        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/world-goldo-on-sale-mob.webp',
       isStatic: false,
       eventRedirectiveUrl:
-        'https://www.apmex.com/category/90165/select-silver-rounds?_campaign=03112024-category90165-priceplay-otherbullion-homepagehero'
+        'https://www.apmex.com/category/90042/vintage-world-gold?_campaign=03122024-category90042-priceplay-vintage-homepagehero'
     },
     {
       id: 3,
       imageName: 'Banner3',
       imageForVenderId: 3,
       imagePath:
-        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/Silver-Bullion-Coins.webp',
+        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/mint-sealed-monster-box.webp',
       mobileImageurl: '',
       isStatic: true,
       eventRedirectiveUrl:
-        'https://www.boldpreciousmetals.com/sale/silver-coin-tubes'
+        'https://www.boldpreciousmetals.com/sale/silver-monster-box'
     },
     {
       id: 4,
@@ -64,11 +64,11 @@ const DashboardImages = () => {
       imageName: 'Banner8',
       imageForVenderId: 4,
       imagePath:
-        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/1-oz-gold-bar-year-of-the-dragon.webp',
+        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/10-liberty-eagle-gold-coins.webp',
       mobileImageurl:
-        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/1-oz-gold-bar-year-of-the-dragon-mob.webp',
+        'https://res.cloudinary.com/bullionmentor/image/upload/Banners/10-liberty-eagle-gold-coins-mob.webp',
       isStatic: false,
-      eventRedirectiveUrl:'https://sdbullion.com/1-oz-lunar-dragon-minted-gold-bar'
+      eventRedirectiveUrl:'https://sdbullion.com/10-liberty-eagle-gold-coin-bu-random-year'
     },
     {
       id: 9,

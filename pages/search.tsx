@@ -52,7 +52,7 @@ export default function Search({
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true); // Set loading state to true when fetching new products
+        setLoading(true);
         const newProducts = await search(query, PAGE_SIZE, 1);
         setProducts(newProducts);
         setFetchedProducts(newProducts.data.searchProducts);
@@ -61,7 +61,7 @@ export default function Search({
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
-        setLoading(false); // Reset loading state when fetching is done
+        setLoading(false); 
       }
     };
 
