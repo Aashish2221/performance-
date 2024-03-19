@@ -56,7 +56,7 @@ const LineAreaChart = ({
       } else if (Number === 3 && TimeFrame === 'month') {
         filteredData = allResponse.filter((_, index) => index % 5 === 0);
       } else if (Number === 6 && TimeFrame === 'month') {
-        filteredData = allResponse.filter((_, index) => index % 11 === 1);
+        filteredData = allResponse.filter((_, index) => index % 12 === 1);
       } else if (Number === 12 && TimeFrame === 'month') {
         filteredData = allResponse.filter((_, index) => index % 11 === 1);
       } else if (Number === 60 && TimeFrame === 'month') {

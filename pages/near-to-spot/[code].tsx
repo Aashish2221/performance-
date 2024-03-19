@@ -2,7 +2,7 @@ import MiscSkeleton1 from '@/components/Loaders/Misc1/MiscSkeleton1';
 import TopProductItem from '@/containers/home/TopProductItem';
 import data from '@/data';
 import { GetTopProductsBy } from '@/interfaces/typeinterfaces';
-import { getTopProducts } from '@/services/spot-prices';
+import { getNearToSpot } from '@/services/spot-prices';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import { Suspense, useEffect, useState } from 'react';
@@ -35,27 +35,17 @@ console.log(products)
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch(
-        `${process.env.BASE_URL}/api/BestBullionDeals/GetHomePageProductsByLocation_SpotChart?GetBy=NearToSpot&Size=12&Pagenumber=${pageNumber}&MetalType=${searchKeyword}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch data');
-      }
-
-      const res = await response.json();
-      const fetchedProducts = res.data.homePageProductDetails;
-
-      if (fetchedProducts.length === 0) {
+      const res = await getNearToSpot('NearToSpot', searchKeyword, 12, pageNumber);
+      if (res && res.data && res.data.homePageProductDetails.length === 0) {
         setHasMore(false);
       } else {
-        setProducts((prevProducts: any) => [...prevProducts, ...fetchedProducts]);
+        setProducts((prevProducts: any) => [...prevProducts, ...res.data.homePageProductDetails]);
         setPageNumber(prevPageNumber => prevPageNumber + 1);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
   const handleLoadMore = () => {
     fetchProducts();
   };
@@ -74,7 +64,7 @@ console.log(products)
   };
   return (
     <>
-      {/******************* SEO CONTENT *******************/}
+      {/* ******************** SEO CONTENT ******************** */}
       <Head>
         <title>{title}</title>
         <meta property='og:type' content={data.OGTags.home.type} />
@@ -112,7 +102,7 @@ console.log(products)
           key='product-jsonld'
         ></script>
       </Head>
-      {/******************* GRADIENT *******************/}
+      {/* ******************** GRADIENT ******************** */}
       <div className='bg-gradient-to-b from-secondary via-white to-white text-dark-black'>
         <div className='container mx-auto py-8 md:mt-2  lg:mt-1'>
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
@@ -123,13 +113,13 @@ console.log(products)
             dangerouslySetInnerHTML={{
               __html: topProducts.homepagecontent?.seoContent
             }}
-          ></p>
+          ></p>``
         </div>
       </div>
       {hydrated === true ? (
         <div className='container mx-2 text-dark-black'>
           <div className='flex flex-col gap-2 md:grid md:grid-cols-5'>
-            {/******************* LEFT ADVERTISEMENT *******************/}
+            {/* ******************** LEFT ADVERTISEMENT ******************** */}
             <div className='hidden flex-col gap-4 sm:sticky sm:top-32 sm:h-fit sm:flex'>
               <div className='flex w-full items-center justify-center rounded-md '>
                 <Image
@@ -152,11 +142,11 @@ console.log(products)
                 />
               </div>
             </div>
-            {/******************* PAGE CONTENT *******************/}
+            {/* ******************** PAGE CONTENT ******************** */}
             <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
-              {/******************* VIEW TOGGLE BUTTONS *******************/}
+              {/* ******************** VIEW TOGGLE BUTTONS ******************** */}
               <div className='mb-4 hidden justify-end gap-6 md:flex'>
-                {/******************* DETAIL VIEW BUTTON *******************/}
+                {/* ******************** DETAIL VIEW BUTTON ******************** */}
                 <button
                   onClick={() => setView('detailed')}
                   className={`flex items-center gap-2 px-4 py-2 ${
@@ -168,7 +158,7 @@ console.log(products)
                   <GiHamburgerMenu size={25} />
                   <span>Detailed View</span>
                 </button>
-                {/******************* GRID VIEW BUTTON *******************/}
+                {/* ******************** GRID VIEW BUTTON ******************** */}
                 <button
                   onClick={() => setView('grid')}
                   className={`flex items-center gap-2 px-4 py-2 ${
@@ -181,7 +171,7 @@ console.log(products)
                   <span>Grid View</span>
                 </button>
               </div>
-              {/******************* PRODUCT LIST *******************/}
+              {/* ******************** PRODUCT LIST ******************** */}
               <Suspense>
                 <InfiniteScroll
                   dataLength={products.length}
@@ -214,7 +204,7 @@ console.log(products)
               __html: topProducts.homepagecontent?.seoContent
             }}
           ></p>
-            {/******************* LEFT ADVERTISEMENT for mobile view *******************/}
+            {/* ******************** LEFT ADVERTISEMENT for mobile view ******************** */}
             <div className='sm:hidden flex-col gap-4 sm:sticky sm:top-32  sm:h-fit'>
               <div className='flex w-full items-center justify-center rounded-md '>
                 <Image
@@ -237,7 +227,7 @@ console.log(products)
                 />
               </div>
             </div>
-            {/******************* RIGHT ADVERTISEMENT *******************/}
+            {/* ******************** RIGHT ADVERTISEMENT ******************** */}
             <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32  sm:flex sm:h-fit lg:pt-0'>
               <div className='flex  w-full items-center justify-center rounded-md'>
                 <Image
@@ -259,30 +249,21 @@ console.log(products)
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-  query,
-  res
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, res }) => {
   let getBy = query.getBy as GetTopProductsBy | undefined;
-  const searchKeyword = query.code;
+  const searchKeyword = String(query.code);
   getBy = 'NearToSpot';
   const size = 12 as number;
   const pageNumber = 1 as number;
-  res.setHeader(
-    'Cache-control',
-    'public, sa-maxage=10, state-while-revalidate=59'
-  );
+  res.setHeader('Cache-control', 'public, sa-maxage=10, state-while-revalidate=59');
+
   try {
-    const response = await fetch(
-      `${process.env.BASE_URL}/api/BestBullionDeals/GetHomePageProductsByLocation_SpotChart?GetBy=${getBy}&Size=${size}&Pagenumber=${pageNumber}&MetalType=${searchKeyword}`
-    );
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    const res = await response.json();
-    const title = res.data.homepagecontent.metaTitle;
-    const description = res.data.homepagecontent.metaDesc;
-    const topProducts = res.data;
+    const response = await getNearToSpot(getBy, searchKeyword, size, pageNumber);
+
+    const title = response.data.homepagecontent.metaTitle;
+    const description = response.data.homepagecontent.metaDesc;
+    const topProducts = response.data;
+
     return {
       props: {
         title,
@@ -297,7 +278,8 @@ export const getServerSideProps: GetServerSideProps = async ({
       props: {
         title: '',
         description: '',
-        topProducts: []
+        searchKeyword: '',
+        topProducts: {}
       }
     };
   }

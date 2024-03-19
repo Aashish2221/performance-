@@ -61,6 +61,21 @@ export const getTopProducts = async (
   return res.data.data;
 };
 
+export const getNearToSpot = async (getBy: string, searchKeyword: string, size: number, pageNumber: number) => {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_URL}/api/BestBullionDeals/GetHomePageProductsByLocation_NearToSpot?GetBy=${getBy}&MetalType=${searchKeyword}&Size=${size}&Pagenumber=${pageNumber}`
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const res = await response.json();
+    return res;
+  } catch (error) {
+    console.error('Error fetching near to spot data:', error);
+    throw error; 
+  }
+};
 
 export const getDealerSponsors = async () => {
   const res = await fetcher.get<ApiResponse<DealerSponsor[]>>(
