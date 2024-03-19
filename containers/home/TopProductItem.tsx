@@ -96,7 +96,7 @@ function GridView({
       </div>
       <div className=' flex flex-col items-center'>
         <span className='font-medium text-[#AF0E0E]'>
-          {toCurrency(asLowAs)} {weightCategoryParam}
+          {toCurrency(asLowAs)}{weightCategoryParam}
         </span>
         <span className='font-normal text-[#656565] '>
           <>{dealers ?? '-'}</>
@@ -254,7 +254,7 @@ function DetaildView({
             )}
           </div>
           <span className='font-medium text-[#AF0E0E]'>
-          {toCurrency(asLowAs)} {weightCategoryParam}
+          {toCurrency(asLowAs)}{weightCategoryParam}
           </span>
           <span className='font-normal text-[#656565]'>
             <>{dealers ?? '-'}</>
