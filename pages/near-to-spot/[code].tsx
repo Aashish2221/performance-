@@ -117,7 +117,7 @@ console.log(products)
         </div>
       </div>
       {hydrated === true ? (
-        <div className='container mx-2 text-dark-black'>
+        <div className='container mx-auto text-dark-black'>
           <div className='flex flex-col gap-2 md:grid md:grid-cols-5'>
             {/* ******************** LEFT ADVERTISEMENT ******************** */}
             <div className='hidden flex-col gap-4 sm:sticky sm:top-32 sm:h-fit sm:flex'>
