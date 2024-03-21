@@ -148,10 +148,11 @@ body::-webkit-scrollbar-track:hover {
   background-color: red;
 }
 
-/****************************/
 #scrollable-content {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #999999 #f5f5f5;
 }
 .scrollable-content::-webkit-scrollbar {
   width: 4px;
@@ -260,6 +261,7 @@ body::-webkit-scrollbar-track:hover {
 }
 .overflow{
   overflow-x: scroll;
+  padding: 5px;
 }
 .blog_h2 {
   width: fit-content;
@@ -420,7 +422,16 @@ width: 100%;
   padding: 10px;
   border-radius:20px;
 }
-
+@media (max-width: 450px) {
+  .blog_circle_img,
+  .blog_square_img {
+    float: none;
+    margin: 0 auto; 
+    display: block;
+    margin-bottom: 10px;
+    
+  }
+}
 .blog_circle_img_description {
   border: 2px solid #e49e2f;
   border-radius: 8px;

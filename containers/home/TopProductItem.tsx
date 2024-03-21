@@ -94,8 +94,8 @@ function GridView({
           <TooltipStatus view='grid' productName={productName} />
         )}
       </div>
-      <div className=' flex flex-col items-center'>
-        <span className='font-medium text-[#AF0E0E]'>
+      <div className=' flex flex-col items-center w-max'>
+        <span className='font-medium  text-[#AF0E0E]'>
           {toCurrency(asLowAs)}{weightCategoryParam}
         </span>
         <span className='font-normal text-[#656565] '>
@@ -166,7 +166,6 @@ function DetaildView({
     } else {
       setCustomerId(user.user.id);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const addProduct = async () => {
     const response = await addProdBuyClicksLog(
@@ -262,7 +261,7 @@ function DetaildView({
           <span className='font-semibold text-primary'>
             As low as {toCurrency(cheapestPrice)}
           </span>
-          <div className='hidden pt-2 sm:block  lg:mt-4'>
+          <div className='hidden sm:block'>
             <div className=' mt-1 border-t-2 border-solid border-gray-300' />
           </div>
           <div className='sm:mx-2 sm:flex sm:items-center sm:gap-1'>
@@ -276,7 +275,7 @@ function DetaildView({
                 Compare
               </Link>
             </div>
-            <div className=' m-5 hidden h-[20px] border-l-2 border-solid border-gray-300 sm:block'></div>
+            <div className=' mx-5 hidden h-[20px] border-l-2 border-solid border-gray-300 sm:block'></div>
             <div className='mt-2 sm:w-full sm:text-center'>
               <Link
                 target={'_blank'}

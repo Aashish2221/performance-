@@ -103,7 +103,7 @@ export default function NearToSpot({
       </Head>
       {/* ******************** GRADIENT ******************** */}
       <div className='bg-gradient-to-b from-secondary via-white to-white text-dark-black'>
-        <div className='container mx-auto py-8 md:mt-2  lg:mt-1'>
+        <div className='container mx-auto pt-8 md:mt-2  lg:mt-1'>
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             Explore the best prices of bullion with Bullion Mentor
           </h1>
@@ -112,7 +112,7 @@ export default function NearToSpot({
             dangerouslySetInnerHTML={{
               __html: topProducts.homepagecontent?.seoContent
             }}
-          ></p>``
+          ></p>
         </div>
       </div>
       {hydrated === true ? (
@@ -197,12 +197,6 @@ export default function NearToSpot({
                 </InfiniteScroll>
               </Suspense>
             </div>
-            <p
-            className='sm:hidden text-xs text-slate-600 md:text-base'
-            dangerouslySetInnerHTML={{
-              __html: topProducts.homepagecontent?.seoContent
-            }}
-          ></p>
             {/* ******************** LEFT ADVERTISEMENT for mobile view ******************** */}
             <div className='sm:hidden flex-col gap-4 sm:sticky sm:top-32  sm:h-fit'>
               <div className='flex w-full items-center justify-center rounded-md '>
@@ -226,6 +220,12 @@ export default function NearToSpot({
                 />
               </div>
             </div>
+            <p
+            className='sm:hidden text-xs text-slate-600 md:text-base'
+            dangerouslySetInnerHTML={{
+              __html: topProducts.homepagecontent?.seoContent
+            }}
+          ></p>
             {/* ******************** RIGHT ADVERTISEMENT ******************** */}
             <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32  sm:flex sm:h-fit lg:pt-0'>
               <div className='flex  w-full items-center justify-center rounded-md'>
