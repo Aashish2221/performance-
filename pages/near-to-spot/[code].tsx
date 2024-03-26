@@ -21,25 +21,33 @@ export default function NearToSpot({
   const [view, setView] = useState<'detailed' | 'grid'>('grid');
   const [hydrated, setHydrated] = useState(true);
   const [hasMore, setHasMore] = useState(true);
-  const [pageNumber, setPageNumber] = useState(2); 
+  const [pageNumber, setPageNumber] = useState(2);
   const [products, setProducts] = useState(topProducts.homePageProductDetails);
   useEffect(() => {
     setHydrated(true);
   }, [topProducts]);
   useEffect(() => {
-    setPageNumber(2); 
-    setHasMore(true); 
+    setPageNumber(2);
+    setHasMore(true);
     setProducts(topProducts.homePageProductDetails);
   }, [searchKeyword]);
 
   const fetchProducts = async () => {
     try {
-      const res = await getNearToSpot('NearToSpot', searchKeyword, 12, pageNumber);
+      const res = await getNearToSpot(
+        'NearToSpot',
+        searchKeyword,
+        12,
+        pageNumber
+      );
       if (res && res.data && res.data.homePageProductDetails.length === 0) {
         setHasMore(false);
       } else {
-        setProducts((prevProducts: any) => [...prevProducts, ...res.data.homePageProductDetails]);
-        setPageNumber(prevPageNumber => prevPageNumber + 1);
+        setProducts((prevProducts: any) => [
+          ...prevProducts,
+          ...res.data.homePageProductDetails
+        ]);
+        setPageNumber((prevPageNumber) => prevPageNumber + 1);
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -49,13 +57,11 @@ export default function NearToSpot({
     fetchProducts();
   };
 
-  const itemListElement = products?.map(
-    (product: any, index: number) => ({
-      '@type': 'ListItem',
-      position: index + 1,
-      url: 'https://www.bullionmentor.com/' + product.shortName
-    })
-  );
+  const itemListElement = products?.map((product: any, index: number) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: 'https://www.bullionmentor.com/' + product.shortName
+  }));
   const trendingProductsSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -108,7 +114,7 @@ export default function NearToSpot({
             Explore the best prices of bullion with Bullion Mentor
           </h1>
           <p
-            className='hidden sm:block text-xs text-slate-600 md:text-base'
+            className='hidden text-xs text-slate-600 md:text-base lg:block'
             dangerouslySetInnerHTML={{
               __html: topProducts.homepagecontent?.seoContent
             }}
@@ -117,9 +123,11 @@ export default function NearToSpot({
       </div>
       {hydrated === true ? (
         <div className='container mx-auto text-dark-black'>
-          <div className='flex flex-col gap-2 md:grid md:grid-cols-5'>
+          <div className='sm:flex sm:flex-row'>
+            {/* <div className='flex flex-col gap-2 md:grid md:grid-cols-5'> */}
+
             {/* ******************** LEFT ADVERTISEMENT ******************** */}
-            <div className='hidden flex-col gap-4 sm:sticky sm:top-32 sm:h-fit sm:flex'>
+            <div className='hidden flex-col gap-4 sm:sticky sm:top-32 sm:block sm:w-[32%] md:h-fit md:flex-1   lg:flex lg:w-[20%]'>
               <div className='flex w-full items-center justify-center rounded-md '>
                 <Image
                   src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Silver-Coins_gxr8un.webp'
@@ -141,104 +149,134 @@ export default function NearToSpot({
                 />
               </div>
             </div>
+
+
+
             {/* ******************** PAGE CONTENT ******************** */}
-            <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
-              {/* ******************** VIEW TOGGLE BUTTONS ******************** */}
-              <div className='mb-4 hidden justify-end gap-6 md:flex'>
-                {/* ******************** DETAIL VIEW BUTTON ******************** */}
-                <button
-                  onClick={() => setView('detailed')}
-                  className={`flex items-center gap-2 px-4 py-2 ${
-                    view === 'detailed'
-                      ? 'rounded-md bg-primary text-white'
-                      : 'bg-white'
-                  }`}
-                >
-                  <GiHamburgerMenu size={25} />
-                  <span>Detailed View</span>
-                </button>
-                {/* ******************** GRID VIEW BUTTON ******************** */}
-                <button
-                  onClick={() => setView('grid')}
-                  className={`flex items-center gap-2 px-4 py-2 ${
-                    view === 'grid'
-                      ? 'rounded-md bg-primary text-white'
-                      : 'bg-white'
-                  }`}
-                >
-                  <IoGridSharp size={25} />
-                  <span>Grid View</span>
-                </button>
-              </div>
-              {/* ******************** PRODUCT LIST ******************** */}
-              <Suspense>
-                <InfiniteScroll
-                  dataLength={products?.length}
-                  next={handleLoadMore}
-                  hasMore={hasMore}
-                  loader={<SearchSpinner />}
-                  scrollThreshold={0.3}
-                >
-                  <div
-                    className={`grid gap-4 mb-5 ${
+            <div className='md:flex-2 sm:w-[68%] lg:w-[60%]'>
+            <div className='flex flex-col gap-2 '>
+
+              <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
+                {/* ******************** VIEW TOGGLE BUTTONS ******************** */}
+                <div className='mb-4 hidden justify-end gap-6 md:flex'>
+                  {/* ******************** DETAIL VIEW BUTTON ******************** */}
+                  <button
+                    onClick={() => setView('detailed')}
+                    className={`flex items-center gap-2 px-4 py-2 ${
                       view === 'detailed'
-                        ? 'grid-cols-1 xl:grid-cols-2'
-                        : 'grid-cols-2 xl:grid-cols-3'
+                        ? 'rounded-md bg-primary text-white'
+                        : 'bg-white'
                     }`}
                   >
-                    {products?.map((product: any) => (
-                      <TopProductItem
-                        view={view}
-                        key={product.productId}
-                        {...product}
-                      />
-                    ))}
+                    <GiHamburgerMenu size={25} />
+                    <span>Detailed View</span>
+                  </button>
+                  {/* ******************** GRID VIEW BUTTON ******************** */}
+                  <button
+                    onClick={() => setView('grid')}
+                    className={`flex items-center gap-2 px-4 py-2 ${
+                      view === 'grid'
+                        ? 'rounded-md bg-primary text-white'
+                        : 'bg-white'
+                    }`}
+                  >
+                    <IoGridSharp size={25} />
+                    <span>Grid View</span>
+                  </button>
+                </div>
+                {/* ******************** PRODUCT LIST ******************** */}
+                <Suspense>
+                  <InfiniteScroll
+                    dataLength={products?.length}
+                    next={handleLoadMore}
+                    hasMore={hasMore}
+                    loader={<SearchSpinner />}
+                    scrollThreshold={0.3}
+                  >
+                    <div
+                      className={`mb-5 grid gap-4 ${
+                        view === 'detailed'
+                          ? 'grid-cols-1 xl:grid-cols-2'
+                          : 'grid-cols-2 xl:grid-cols-3'
+                      }`}
+                    >
+                      {products?.map((product: any) => (
+                        <TopProductItem
+                          view={view}
+                          key={product.productId}
+                          {...product}
+                        />
+                      ))}
+                    </div>
+                  </InfiniteScroll>
+                </Suspense>
+              </div>
+
+
+
+
+
+
+
+
+
+              {/* ******************** LEFT ADVERTISEMENT for mobile view ******************** */}
+              <div className='mx-2 flex-col gap-4 sm:hidden md:static md:top-[32px] md:h-fit'>
+                <div className='flex w-full items-center justify-center rounded-md sm:hidden'>
+                  <Image
+                    src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Silver-Coins_gxr8un.webp'
+                    alt=''
+                    height={350}
+                    width={550}
+                    className='rounded-lg'
+                    loading='lazy'
+                  />
+                </div>
+                <div className='flex w-full items-center justify-center rounded-md'>
+                  <Image
+                    src='https://res.cloudinary.com/bullionmentor/image/upload/v1689165092/Banners/Canadian-Maple-Leaf_c1juxl.webp'
+                    alt=''
+                    height={350}
+                    width={550}
+                    className='rounded-lg pt-4 lg:pt-0'
+                    loading='lazy'
+                  />
+                </div>
+              </div>
+              {/***************** SEO CONTENT TOP  FOR MOBILE VIEW *****************/}
+              <div
+                className={`text-justify' mx-2 text-sm text-slate-600 sm:container sm:mx-auto sm:mt-10 md:relative md:col-span-4 md:mt-5  md:text-base`}
+              >
+                <div className='text-dark-black  lg:hidden'>
+                  <div className=' md:mt-2 lg:mt-1'>
+                    <p
+                      className='text-sm text-slate-600 md:text-base lg:hidden'
+                      dangerouslySetInnerHTML={{
+                        __html: topProducts.homepagecontent?.seoContent
+                      }}
+                    ></p>
                   </div>
-                </InfiniteScroll>
-              </Suspense>
-            </div>
-            {/* ******************** LEFT ADVERTISEMENT for mobile view ******************** */}
-            <div className='sm:hidden flex-col gap-4 sm:sticky sm:top-32  sm:h-fit'>
-              <div className='flex w-full items-center justify-center rounded-md '>
-                <Image
-                  src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Silver-Coins_gxr8un.webp'
-                  alt=''
-                  height={350}
-                  width={550}
-                  className='rounded-lg'
-                  loading='lazy'
-                />
-              </div>
-              <div className='flex w-full items-center justify-center rounded-md'>
-                <Image
-                  src='https://res.cloudinary.com/bullionmentor/image/upload/v1689165092/Banners/Canadian-Maple-Leaf_c1juxl.webp'
-                  alt=''
-                  height={350}
-                  width={550}
-                  className='rounded-lg pt-4 lg:pt-0'
-                  loading='lazy'
-                />
+                </div>
               </div>
             </div>
-            <p
-            className='sm:hidden text-sm text-slate-600 md:text-base'
-            dangerouslySetInnerHTML={{
-              __html: topProducts.homepagecontent?.seoContent
-            }}
-          ></p>
+            </div>
             {/* ******************** RIGHT ADVERTISEMENT ******************** */}
-            <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32  sm:flex sm:h-fit lg:pt-0'>
-              <div className='flex  w-full items-center justify-center rounded-md'>
-                <Image
-                  src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Bullion-Mentor-motive_anp3hj.webp'
-                  alt=''
-                  height={500}
-                  width={500}
-                  className='rounded-lg'
-                  loading='eager'
-                />
+            <div className='md:flex-3 hidden sm:w-[0%] md:ml-4 lg:flex lg:w-[20%]'>
+              <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32 sm:h-fit sm:pt-0 lg:flex'>
+                <div className='flex  w-full items-center justify-center rounded-md'>
+                  <Image
+                    src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Bullion-Mentor-motive_anp3hj.webp'
+                    alt=''
+                    height={500}
+                    width={500}
+                    className='rounded-lg'
+                    loading='eager'
+                  />
+                </div>
               </div>
             </div>
+
+            {/* </div> */}
           </div>
         </div>
       ) : (
@@ -248,21 +286,35 @@ export default function NearToSpot({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query, req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  req,
+  res
+}) => {
   let getBy = query.getBy as GetTopProductsBy | undefined;
   const searchKeyword = String(query.code);
   getBy = 'NearToSpot';
 
   const userAgent = req.headers['user-agent'];
-  const isMobile = userAgent ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) : false;
-
+  const isMobile = userAgent
+    ? /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent
+      )
+    : false;
   const size = isMobile ? 6 : 9;
-
   const pageNumber = 1 as number;
-  res.setHeader('Cache-control', 'public, sa-maxage=10, state-while-revalidate=59');
+  res.setHeader(
+    'Cache-control',
+    'public, sa-maxage=10, state-while-revalidate=59'
+  );
 
   try {
-    const response = await getNearToSpot(getBy, searchKeyword, size, pageNumber);
+    const response = await getNearToSpot(
+      getBy,
+      searchKeyword,
+      size,
+      pageNumber
+    );
     const title = response.data.homepagecontent.metaTitle;
     const description = response.data.homepagecontent.metaDesc;
     const topProducts = response.data;
@@ -286,4 +338,3 @@ export const getServerSideProps: GetServerSideProps = async ({ query, req, res }
     };
   }
 };
-
