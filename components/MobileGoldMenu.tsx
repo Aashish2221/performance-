@@ -132,7 +132,7 @@ export default function MobileGoldMenu({ onHide }: MobileGoldMenuProps) {
                       loading='lazy'
                     />
                   </div>
-                  <p className='mt-2 text-center text-xs font-semibold text-white'>
+                  <p className='mt-2 text-xs font-semibold text-white'>
                     {item.label}
                   </p>
                 </Link>

@@ -170,7 +170,7 @@ export default function MobileSilverMenu({ onHide }: MobileSilverMenuProps) {
                       loading='lazy'
                     />
                   </div>
-                  <p className='mt-2 text-center text-xs text-white'>
+                  <p className='mt-2 text-xs text-white'>
                     {item.label}
                   </p>
                 </Link>

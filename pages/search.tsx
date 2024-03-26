@@ -26,6 +26,7 @@ export default function Search({
   const [fetchedProducts, setFetchedProducts] = useState(
     initialProducts.data.searchProducts
   );
+  const [searchObject, setSearchObject] = useState({ query: query });
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const Length = initialProducts.data.countOfProducts.numberOfPages;
@@ -48,6 +49,10 @@ export default function Search({
       console.error('Error fetching more products:', error);
     }
   };
+console.log(query)
+useEffect(() => {
+  setSearchObject({ query: query });
+}, [query]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -153,7 +158,7 @@ export default function Search({
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             {initialProducts.data.content.title
               ? initialProducts.data.content.title
-              : ''}
+              : `Browse Results for ${searchObject.query.searchKW}`}
           </h1>
           <h2
             id='innerText'
@@ -173,7 +178,7 @@ export default function Search({
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             {initialProducts.data.content.title
               ? initialProducts.data.content.title
-              : ''}
+              : `Browse Results for ${searchObject.query.searchKW}`}
           </h1>
         </div>
       </div>
@@ -185,7 +190,7 @@ export default function Search({
         <div className='container mx-auto text-dark-black'>
           <div className='md:flex md:flex-row'>
              {/***************** LEFT ADVERTISEMENT *****************/}
-             <div className='hidden sm:block sm:sticky sm:top-32 md:w-[20%] md:flex-1 flex-col gap-4   md:h-fit lg:flex'>
+             <div className='hidden sm:block sm:sticky sm:top-32 sm:w-[32%] lg:w-[20%] md:flex-1 flex-col gap-4   md:h-fit lg:flex'>
                   <div className='flex w-full items-center justify-center rounded-md'>
                     <Image
                       src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Where-Beauty-Meets-Value_ig2c4a.webp'
@@ -206,14 +211,14 @@ export default function Search({
                       loading='eager'
                     />
                   </div>
-            </div>
-            <div className='md:w-[60%] md:flex-2'>
+              </div>
+            <div className='sm:w-[68%] lg:w-[60%] md:flex-2'>
               <div className='flex flex-col gap-2 '>
                
                 {/***************** PAGE CONTENT *****************/}
                 <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
                   {/***************** VIEW TOGGLE BUTTONS *****************/}
-                  <div className='mb-4 sm:mt-4 lg:mt-0 hidden justify-end gap-6 md:flex'>
+                  <div className='mb-4 hidden justify-end gap-6 md:flex'>
                     {/***************** DETAIL VIEW BUTTON *****************/}
                     <button
                       onClick={() => setView('detailed')}
@@ -336,9 +341,8 @@ export default function Search({
                 </div>
               </div>
             </div>
-            
               {/***************** RIGHT ADVERTISEMENT *****************/}
-            <div className='hidden lg:flex md:flex-3 md:ml-4 md:w-[20%]'>
+            <div className='hidden lg:flex md:flex-3 md:ml-4 sm:w-[0%] lg:w-[20%]'>
               <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32 lg:flex sm:h-fit sm:pt-0'>
                 <div className='flex w-full items-center justify-center rounded-md'>
                   <Image
