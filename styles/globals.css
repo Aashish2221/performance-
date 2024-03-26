@@ -422,7 +422,7 @@ width: 100%;
   padding: 10px;
   border-radius:20px;
 }
-@media (max-width: 450px) {
+@media (max-width: 475px) {
   .blog_circle_img,
   .blog_square_img {
     float: none;

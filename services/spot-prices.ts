@@ -45,7 +45,10 @@ export const getTopProductsBySpesifictFilter = async (
 export const getTopProducts = async (
   getBy?: GetTopProductsBy,
   searchKeyword?: string,
-  metalType?: string
+  metalType?: string,
+  size?:string,
+  PageNumber?:string
+
 ) => {
   if (searchKeyword) {
     return searchProducts(searchKeyword);
@@ -54,9 +57,19 @@ export const getTopProducts = async (
     `${process.env.BASE_URL}/api/BestBullionDeals/GetHomePageProductsByLocation`
   );
   url.searchParams.set('GetBy', getBy ?? 'Trending');
-  if (metalType) {
+
+ if (metalType) {
     url.searchParams.set('MetalType', metalType);
+    if (size) {
+      url.searchParams.set('size', size.toString()); 
+    }
+    if (PageNumber) {
+      url.searchParams.set('Pagenumber', PageNumber.toString());
+    }
   }
+
+
+
   const res = await fetcher.get<ApiResponse<Product[]>>(url.toString());
   return res.data.data;
 };
@@ -99,7 +112,12 @@ export const getBlogData = async () => {
   );
   return res.data.data;
 };
-
+export const getBlogsData = async (PageSize:any, pagenumber:any) => {
+  const res = await fetcher.get<ApiResponse<Blog[]>>(
+    `${process.env.BASE_URL}/api/BestBullionDeals/GetBlogsTemp?size=${PageSize}&pagenumber=${pagenumber}`
+  );
+  return res.data.data;
+};
 export const getBlogDetails = async (code: string) => {
   const url = new URL(
     `${process.env.BASE_URL}/api/BestBullionDeals/GetBlogDetails`

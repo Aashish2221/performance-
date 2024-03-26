@@ -103,9 +103,9 @@ export default function TopNavbar() {
   useOnClickOutside(outSideRef, () => setDropdown(false));
   useEffect(() => {
     if (showMobileMenu) {
-      document.body.classList.add('overflow-scroll');
+      document.body.classList.add('overflow-hidden');
     } else {
-      document.body.classList.remove('overflow-scroll');
+      document.body.classList.remove('overflow-hidden');
     }
   }, [showMobileMenu]);
   return (

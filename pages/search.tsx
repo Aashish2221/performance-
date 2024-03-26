@@ -147,8 +147,8 @@ export default function Search({
           }}
         />
       </Head>
-      <div className='hidden bg-gradient-to-b from-secondary via-white to-white text-dark-black md:block lg:block'>
         {/***************** SEO CONTENT TOP *****************/}
+      <div className='hidden bg-gradient-to-b from-secondary via-white to-white text-dark-black lg:block'>
         <div className='container mx-auto py-8 md:mt-2 lg:mt-1'>
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             {initialProducts.data.content.title
@@ -166,8 +166,9 @@ export default function Search({
           ></h2>
         </div>
       </div>
-      <div className='bg-gradient-to-b from-secondary via-white to-white text-dark-black sm:hidden'>
-        {/***************** SEO CONTENT TOP FOR MOBILE VIEW *****************/}
+
+        {/***************** SEO CONTENT TOP FOR MOBILE and ipad VIEW *****************/}
+      <div className='bg-gradient-to-b from-secondary via-white to-white text-dark-black lg:hidden'>
         <div className='container mx-auto pt-8 md:mt-2 lg:mt-1'>
           <h1 className='mb-2 mt-3 text-lg font-bold md:text-xl lg:mt-0'>
             {initialProducts.data.content.title
@@ -183,31 +184,32 @@ export default function Search({
       ) : (
         <div className='container mx-auto text-dark-black'>
           <div className='md:flex md:flex-row'>
-            <div className='md:w-[80%] md:flex-1'>
-              <div className='flex flex-col gap-2 md:grid md:grid-cols-4'>
-                {/***************** LEFT ADVERTISEMENT *****************/}
-                <div className='hidden sm:block flex-col gap-4 md:static md:top-[32px] md:h-fit lg:flex'>
+             {/***************** LEFT ADVERTISEMENT *****************/}
+             <div className='hidden sm:block sm:sticky sm:top-32 md:w-[20%] md:flex-1 flex-col gap-4   md:h-fit lg:flex'>
                   <div className='flex w-full items-center justify-center rounded-md'>
                     <Image
                       src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Where-Beauty-Meets-Value_ig2c4a.webp'
                       alt=''
-                      height={350}
-                      width={350}
+                      height={500}
+                      width={500}
                       className='rounded-lg'
-                      loading='lazy'
+                      loading='eager'
                     />
                   </div>
                   <div className='flex  w-full items-center justify-center rounded-md'>
                     <Image
                       src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/United-States-Mint_cemody.jpg'
                       alt=''
-                      height={350}
-                      width={350}
+                      height={500}
+                      width={500}
                       className='rounded-lg pt-4 lg:pt-0'
-                      loading='lazy'
+                      loading='eager'
                     />
                   </div>
-                </div>
+            </div>
+            <div className='md:w-[60%] md:flex-2'>
+              <div className='flex flex-col gap-2 '>
+               
                 {/***************** PAGE CONTENT *****************/}
                 <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
                   {/***************** VIEW TOGGLE BUTTONS *****************/}
@@ -224,7 +226,7 @@ export default function Search({
                       <GiHamburgerMenu size={25} />
                       <span>Detailed View</span>
                     </button>
-                    {/***************** GRID VIEW BUTTON *****************/}
+                    {/* **************** GRID VIEW BUTTON **************** */}
                     <button
                       onClick={() => setView('grid')}
                       className={`flex items-center gap-2 px-4 py-2 ${
@@ -288,26 +290,29 @@ export default function Search({
                     <Image
                       src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Where-Beauty-Meets-Value_ig2c4a.webp'
                       alt=''
-                      height={350}
-                      width={550}
+                      height={500}
+                      width={500}
                       className='rounded-lg'
-                      loading='lazy'
+                      loading='eager'
                     />
                   </div>
                   <div className='flex sm:hidden  w-full items-center justify-center rounded-md'>
                     <Image
                       src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/United-States-Mint_cemody.jpg'
                       alt=''
-                      height={350}
-                      width={550}
+                      height={500}
+                      width={500}
                       className='rounded-lg pt-4 lg:pt-0'
-                      loading='lazy'
+                      loading='eager'
                     />
                   </div>
                 </div>
-                <div className='text-dark-black  sm:hidden'>
+                <div
+                  className={`text-justify' sm:container sm:mx-auto mx-2 sm:mt-10 text-sm text-slate-600 md:relative md:col-span-4 md:mt-5  md:text-base`}
+                  >
+                    <div className='text-dark-black  lg:hidden'>
                   {/***************** SEO CONTENT TOP  FOR MOBILE VIEW *****************/}
-                  <div className='sm:container mx-2 md:mt-2 lg:mt-1'>
+                  <div className=' md:mt-2 lg:mt-1'>
                     <h2
                       id='innerText'
                       className='text-sm text-slate-600  md:text-base'
@@ -319,10 +324,7 @@ export default function Search({
                     ></h2>
                   </div>
                 </div>
-                {/***************** SEO CONTENT BOTTOM *****************/}
-                <div
-                  className={`text-justify' sm:container sm:mx-auto mx-2 sm:mt-10 text-sm text-slate-600 md:relative md:col-span-4 md:mt-5  md:text-base`}
-                >
+                  {/***************** SEO CONTENT BOTTOM *****************/}
                   <span
                     id='innerText'
                     dangerouslySetInnerHTML={{
@@ -334,9 +336,10 @@ export default function Search({
                 </div>
               </div>
             </div>
-            <div className='md:flex-2 md:ml-4 md:w-[20%]'>
+            
               {/***************** RIGHT ADVERTISEMENT *****************/}
-              <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32 sm:flex sm:h-fit sm:pt-0'>
+            <div className='hidden lg:flex md:flex-3 md:ml-4 md:w-[20%]'>
+              <div className='hidden flex-col gap-4 pt-6 sm:sticky sm:top-32 lg:flex sm:h-fit sm:pt-0'>
                 <div className='flex w-full items-center justify-center rounded-md'>
                   <Image
                     src='https://res.cloudinary.com/bullionmentor/image/upload/Banners/Bullion-Mentor-motive_anp3hj.webp'
@@ -344,7 +347,7 @@ export default function Search({
                     height={500}
                     width={500}
                     className='rounded-lg'
-                    loading='lazy'
+                    loading='eager'
                   />
                 </div>
               </div>
