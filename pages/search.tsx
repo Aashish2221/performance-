@@ -213,7 +213,7 @@ export default function Search({
                 {/***************** PAGE CONTENT *****************/}
                 <div className='col-span-3 mx-0 grow gap-0 lg:mx-4 lg:gap-4'>
                   {/***************** VIEW TOGGLE BUTTONS *****************/}
-                  <div className='mb-4 hidden justify-end gap-6 md:flex'>
+                  <div className='mb-4 sm:mt-4 lg:mt-0 hidden justify-end gap-6 md:flex'>
                     {/***************** DETAIL VIEW BUTTON *****************/}
                     <button
                       onClick={() => setView('detailed')}
